@@ -1,9 +1,5 @@
-function Home() {
-  return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      RomanPulse AI Landing Page
-    </div>
-  );
-}
+import Hero from "@/features/landing/components/Hero";
 
-export default Home;
+export default function Home() {
+  return <Hero />;
+}
