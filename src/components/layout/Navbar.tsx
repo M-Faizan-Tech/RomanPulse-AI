@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "@/components/common/Logo";
 
 export default function Navbar() {
   return (
@@ -9,12 +10,7 @@ export default function Navbar() {
           to="/"
           className="text-xl font-semibold tracking-tight"
         >
-          <span className="gradient-text">
-            RomanPulse
-          </span>
-          <span className="text-white">
-            AI
-          </span>
+          <Logo />
         </Link>
 
 

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import HeroBackground from "./HeroBackground";
 import PageContainer from "@/components/layout/PageContainer";
-import AIAnalysisPreview from "./AIAnalysisPreview";
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden py-28">
@@ -41,7 +41,7 @@ export default function Hero() {
             </button>
           </div>
 
-          <AIAnalysisPreview />
+          
         </motion.div>
       </PageContainer>
     </section>

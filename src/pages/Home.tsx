@@ -1,5 +1,19 @@
-import Hero from "@/features/landing/components/Hero";
+import {
+  Hero,
+  AIAnalysisPreview,
+  Features,
+  HowItWorks,
+  CTA,
+} from "@/features/landing/components";
 
 export default function Home() {
-  return <Hero />;
+  return (
+    <>
+  <Hero />
+  <AIAnalysisPreview />
+  <Features />
+  <HowItWorks />
+  <CTA />
+</>
+  );
 }
