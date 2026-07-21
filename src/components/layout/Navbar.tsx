@@ -1,11 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import Logo from "@/components/common/Logo";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function Navbar() {
-  return (
-    <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8 lg:px-12">
+  const navigate = useNavigate();
 
+  const { user, signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/login");
+  };
+
+  return (
+    <nav className="border-b border-white/10 bg-[#09090B]/80 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+
+        {/* Logo */}
         <Link
           to="/"
           className="text-xl font-semibold tracking-tight"
@@ -23,6 +35,7 @@ export default function Navbar() {
             Home
           </Link>
 
+
           <Link
             to="/dashboard"
             className="text-sm text-zinc-400 transition hover:text-white"
@@ -30,12 +43,43 @@ export default function Navbar() {
             Dashboard
           </Link>
 
-          <Link
-            to="/login"
-            className="rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition hover:scale-105"
-          >
-            Get Started
-          </Link>
+
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="
+                rounded-full
+                border
+                border-white/10
+                px-5
+                py-2
+                text-sm
+                font-medium
+                text-white
+                transition
+                hover:bg-white/10
+              "
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="
+                rounded-full
+                bg-white
+                px-5
+                py-2
+                text-sm
+                font-medium
+                text-black
+                transition
+                hover:scale-105
+              "
+            >
+              Get Started
+            </Link>
+          )}
 
         </div>
 

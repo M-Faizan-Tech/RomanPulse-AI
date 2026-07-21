@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 
+import ProtectedRoute from "@/routes/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +21,13 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/dashboard",
-        element: <Dashboard />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+        ],
       },
     ],
   },
