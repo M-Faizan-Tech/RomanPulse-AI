@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/PasswordInput";
+import FormMessage from "@/components/ui/FormMessage";
+import { Button } from "@/components/ui/button";
 
 import {
   loginSchema,
@@ -26,9 +31,18 @@ export default function LoginForm() {
   };
 
   return (
-    <section className="flex items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md">
-        <h1 className="text-4xl font-bold">Welcome Back</h1>
+    <section>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          ease: "easeOut",
+        }}
+      >
+        <h2 className="text-3xl font-bold text-white">
+          Welcome Back
+        </h2>
 
         <p className="mt-3 text-zinc-400">
           Sign in to access your AI dashboard.
@@ -36,55 +50,67 @@ export default function LoginForm() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-10 space-y-6"
+          className="mt-10 space-y-7"
         >
           {/* Email */}
           <div>
             <Input
-                type="email"
-                placeholder="Email"
-                {...register("email")}
+              type="email"
+              placeholder="Email"
+              {...register("email")}
             />
 
-            {errors.email && (
-              <p className="mt-2 text-sm text-red-400">
-                {errors.email.message}
-              </p>
-            )}
+            <FormMessage message={errors.email?.message} />
           </div>
 
           {/* Password */}
           <div>
             <PasswordInput
-                placeholder="Password"
-                {...register("password")}
+              placeholder="Password"
+              {...register("password")}
             />
 
-            {errors.password && (
-              <p className="mt-2 text-sm text-red-400">
-                {errors.password.message}
-              </p>
-            )}
+            <FormMessage message={errors.password?.message} />
           </div>
 
           {/* Submit */}
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-xl bg-white py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+            className="
+              w-full
+              transition-all
+              duration-300
+              hover:scale-[1.02]
+              active:scale-[0.98]
+            "
           >
-            {isSubmitting ? "Signing In..." : "Sign In"}
-          </button>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing In...
+              </>
+            ) : (
+              "Sign In"
+            )}
+          </Button>
 
           {/* Forgot Password */}
-          <button
+          <Button
             type="button"
-            className="w-full text-sm text-zinc-400 transition hover:text-white"
+            variant="ghost"
+            className="
+              w-full
+              text-sm
+              text-zinc-400
+              transition
+              hover:text-white
+            "
           >
             Forgot Password?
-          </button>
+          </Button>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 }
