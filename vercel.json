@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/analyze-feedback.py": {
+      "runtime": "python3.11"
+    }
+  }
+}
