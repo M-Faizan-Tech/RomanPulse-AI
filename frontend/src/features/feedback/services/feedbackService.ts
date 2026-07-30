@@ -4,7 +4,7 @@ import type {
 } from "../types/feedback.types";
 
 const API_URL =
-"/api/analyze-feedback";
+  import.meta.env.VITE_API_URL ?? "/api/analyze-feedback";
 
 export async function analyzeFeedback(
   data: FeedbackAnalysisRequest
@@ -18,12 +18,13 @@ export async function analyzeFeedback(
   });
 
   if (!response.ok) {
-    const error = await response.json();
+    const error = await response.json().catch(() => ({}));
 
     console.error("Backend Error:", error);
 
     throw new Error(
       error.detail ||
+      error.error ||
       error.message ||
       "Failed to analyze feedback."
     );
@@ -31,5 +32,5 @@ export async function analyzeFeedback(
 
   const result = await response.json();
 
-  return result.analysis as FeedbackAnalysisResult;
+  return (result.analysis ?? result) as FeedbackAnalysisResult;
 }
